@@ -98,6 +98,12 @@ function js() {
        .pipe(dest(path.build.js))
        .pipe(browsersync.stream())
 }
+
+function images() {
+    return src(path.src.img)       
+       .pipe(dest(path.build.img))
+       .pipe(browsersync.stream())
+}
  
 function watchFiles(params) {
     gulp.watch([path.watch.html], html);
