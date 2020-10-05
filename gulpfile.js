@@ -40,7 +40,8 @@ let { src, dest } = require('gulp'),
    imagemin = require("gulp-imagemin"),
    webp = require("gulp-webp"),
    webphtml = require("gulp-webp-html"),
-   webpcss = require("gulp-webpcss");
+   webpcss = require("gulp-webpcss"),
+   svgSprite = require('gulp-svg-sprite');
  
 function browserSync(params) {
     browsersync.init({
@@ -125,6 +126,20 @@ function images() {
        .pipe(dest(path.build.img))
        .pipe(browsersync.stream())
 }
+
+gulp.task('svgSprite', function () {
+    return gulp.src([source_folder + '/iconsprite/*.svg'])
+    .pipe(svgSprite({
+        mode: {
+            stack: {
+                sprite: "../icons/icons.svg", //sprite file name 
+                example: true
+            }
+        },
+    }
+    ))
+    .pipe(dest(path.build.img))
+})
  
 function watchFiles(params) {
     gulp.watch([path.watch.html], html);
